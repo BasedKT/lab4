@@ -141,7 +141,7 @@ def lrs_step(decay, epoch_update):
     return lambda lr, epoch: lr * (decay ** (epoch // epoch_update))
 
 
-def lrs_handler(lrs, epoch_update=10):
+def lrs_handler(lrs, epoch_update=30):
     match lrs:
         case LearningRateScheduling.Classic:
             return lambda lr, epoch: lr
