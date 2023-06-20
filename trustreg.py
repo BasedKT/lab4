@@ -59,7 +59,7 @@ def gauss_newton(cur_point, funcs, max_steps=10000, store_points=False):
     if store_points:
         return points
     else:
-        return [cur_point, f(cur_point)]
+        return cur_point
 
 
 def hessian(f):
@@ -99,7 +99,7 @@ def trust_region(f, x_k, get_p, recalc_m, delta=1., delta_max=10., eps=0.001, et
     if store_points:
         return points
     else:
-        return [x_k, f(x_k)]
+        return x_k
 
 
 def m_for_dogleg(f, g, B, x_k):
@@ -204,7 +204,7 @@ def bfgs(f, x, breaking_eps=0.0001, store_points=False):
     if store_points:
         return points
     else:
-        return [x, f(x)]
+        return x
 
 
 def lbfgs(f, x, breaking_eps=0.00001, m=10, store_points=False):
@@ -242,7 +242,7 @@ def lbfgs(f, x, breaking_eps=0.00001, m=10, store_points=False):
         x_prev = np.copy(x)
         wolfe_cond = wolfe_cond_template(0.000001, 0.999999, x, f, grad_prev)
         phi = lambda a: f(x + a * p)
-        x += dichotomy(phi, 0., right_border_calc(phi), is_wolfe=True) * p
+        x += dichotomy(phi, 0., right_border_calc(phi), is_wolfe=False) * p
 
         if k != 0:
             prev_y.append(y_k)
@@ -265,4 +265,4 @@ def lbfgs(f, x, breaking_eps=0.00001, m=10, store_points=False):
     if store_points:
         return points
     else:
-        return [x, f(x)]
+        return x
